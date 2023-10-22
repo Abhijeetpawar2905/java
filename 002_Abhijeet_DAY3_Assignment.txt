@@ -1,0 +1,77 @@
+﻿/**
+ * 
+ */
+package one;
+
+
+/**
+ * @author Abhijeet
+ */
+public class first {
+   private int num;
+
+
+/**
+ * @param num to set num as a member variable
+ */
+public first(int num) {
+        super();
+        this.num = num;
+}
+
+
+/**
+ * @return the num passed
+ */
+public int getNum() {
+        return num;
+}
+
+
+/**
+ * @param num the num to change
+ */
+public void setNum(int num) {
+        this.num = num;
+}
+   
+}
+------------------------------------------------------------------------------------------------------
+/**
+ * 
+ */
+package one;
+
+
+/**
+ * @author Pawar
+ */
+public class second {
+    private String message;
+
+
+        /**
+         * @param message set
+         */
+        public second(String message) {
+                super();
+                this.message = message;
+        }
+
+
+        /**
+         * @return the message passed
+         */
+        public String getMessage() {
+                return message;
+        }
+
+
+        /**
+         * @param message the message to change
+         */
+        public void setMessage(String message) {
+                this.message = message;
+        }
+    
+}

@@ -1,0 +1,88 @@
+Q1)
+interface First{
+	void disp1();
+}
+class second{
+	void fun1() {
+		System.out.println("I am the method of class");
+	}
+}
+public class Myclass {
+
+	public static void main(String[] args) {
+		second s1 =new second();
+    First ref = s1::fun1;
+    ref.disp1();
+	}
+
+}
+
+Q2)
+interface Third{
+	void show(int num);
+}
+class Sample{
+	void disp(int num) {
+		System.out.println("The num you entered is  "+num);
+	}
+	
+}
+
+
+
+public class Myclass {
+
+	public static void main(String[] args) {
+		Sample s1 = new Sample();
+	Third ref = s1::disp;
+	ref.show(500);
+
+	}
+
+}
+
+Q3)
+interface fifth{
+	int add(int a,int b);
+}
+class Math1 {
+	int calc(int a,int b) {
+		return a+b;
+	}
+}
+public class Myclass {
+
+	public static void main(String[] args) {
+	// method refrence//
+		Math1 m1 = new Math1();
+		fifth f1 = m1::calc;
+		System.out.println("The added number is  "+f1.add(10, 20));
+		
+      //  lambda Expression
+		
+		fifth ref1=(a,b)->{ return m1.calc(a,b); };
+		System.out.println((ref1.add(10,30)));
+		
+	}
+
+}
+Q4)
+interface sixth{
+	void disp5();
+}
+class sample{
+	static void fun1() {
+		System.out.println("I am the function fun1 of the classsssssss ");
+	}
+}
+public class Myclass {
+
+	public static void main(String[] args) {
+		//sample s1 = new sample();
+	sixth ref =sample::fun1; 
+	ref.disp5();
+
+	}
+
+}
+

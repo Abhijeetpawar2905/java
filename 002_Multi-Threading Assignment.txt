@@ -1,0 +1,158 @@
+1) create a multi-threaded application by using  "extends Thread " method.create 2 threads. they should display characters from A to J.
+
+import java.lang.Thread;
+
+public class Myclass extends Thread
+{
+	public void run()
+	{
+		for(int i='A';i<='J';i++)
+		{
+			System.out.println((char)i);
+		}
+		
+		
+	}
+	public static void main(String args[])
+	{
+		Myclass m1= new Myclass();
+		Myclass m2= new Myclass();
+		m1.start();
+		m2.start();
+		
+	}
+}
+----------------------------------------------------------------------------------
+
+2) above program  using "implements Runnable" method.
+
+import java.lang.Thread;
+import java.lang.Runnable;
+
+public class Myclass implements Runnable
+{
+	public void run()
+	{
+            for(int i='A';i<='J';i++)
+	     {
+		System.out.println((char)i);
+	     }		
+	}
+	public static void main(String args[])
+	{
+		Myclass m1=new Myclass();
+		Thread t1= new Thread(m1);
+		Thread t2=new Thread (m1);
+		t1.start();
+		t2.start();
+	}
+}
+--------------------------------------------------------------------------------
+
+3) create 3 threads in such a way that while one thread is executing, 2 threads cannot interfere. they should display output "Exec  0" to "Exec 5".
+
+public class Myclass implements Runnable
+{
+	public void run()
+	{
+		synchronized(this)
+		{
+			for(int i=0;i<=5;i++)
+			{
+				System.out.println("Exec "+i);
+			}
+		}
+		
+	}
+	
+	public static void main(String args[])
+	{
+		Myclass m1= new Myclass();
+		Thread t1 =new Thread(m1);
+		Thread t2 = new Thread (m1);
+		Thread t3= new Thread(m1);
+		t1.start();
+		t2.start();
+		t3.start();
+		
+	}
+	
+}
+-----------------------------------------------------------------------------
+
+4)create 2 threads. Write a program which displays number 1 to 10 using class lock. 
+[hint:- use "implements Runnable" and synchronized block]
+
+public class classLock1 implements Runnable
+{
+	static Class cs;
+	static void disp1()
+	{
+		synchronized(cs)// synchronized(classLock1.class)
+		{
+			System.out.println(Thread.currentThread());
+			for(int i=0;i<=10;i++)
+			{
+				System.out.println("Inside disp "+i);
+			}
+		}
+	}
+	public void run()
+	{
+		disp1();
+	}
+	public static void main(String args[])
+	{
+		cs=classLock1.class;
+		classLock1 cl1=new classLock1();
+		classLock1 cl2= new classLock1();
+		Thread t1 = new Thread(cl1,"First");
+		Thread t2 = new Thread(cl2,"Second");
+		t1.start();
+		t2.start();
+	}
+}
+
+-----------------------------------------------------------------------------------------------------
+5) create 2 threads
+	one thread will display 1 to 50
+	second thread will display 50 to 1
+both the threads should start simultaneously.
+
+(use implements method)
+
+
+public class Th5 implements Runnable
+{
+	public void run()
+	{
+		
+		if(Thread.currentThread().getName().equalsIgnoreCase("Assending"))
+		{
+			for(int i=1;i<=50;i++)
+			{
+				System.out.print(Thread.currentThread());
+				System.out.println(i);
+			}
+		}
+		else
+			for(int j=50;j>=1;j--)
+			{
+				System.out.print(Thread.currentThread());
+				System.out.println(j);
+			}
+		
+	}
+	public static void main(String args[])
+	{
+		Th5 ob= new Th5();
+		Thread t1 = new Thread(ob);
+		t1.setName("Assending");
+		Thread t2 = new Thread(ob);
+		t2.setName("Desending");
+		t1.start();
+		t2.start();
+		
+	}
+	
+}

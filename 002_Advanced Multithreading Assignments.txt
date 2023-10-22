@@ -1,0 +1,157 @@
+1) create a multi-threaded application by using Thread pool.create 2 threads. each thread should display characters from A to J. [ make sure while one thread executes , other thread should not interfere ]
+sol:-
+import java.util.concurrent.*;
+public class Mythread implements Runnable 
+{
+	synchronized public void run()
+	{
+		for(int i=0; i<10; i++)
+		{
+			System.out.println((char)('A'+i));
+		}
+	}
+	public static void main(String args[])
+	{
+		ExecutorService exec = Executor.newFixedThreadPool(2);
+		exec.execute(new Mythread());
+		exec.execute(new Mythread());
+	}
+}
+2) create a multi-threaded application by using Thread pool.create 2 threads. each thread should display numbers from 1 to 10. [ make sure while one thread executes , other thread should not interfere ]
+Also when first thread displays nos. from 1 to 5 it should released the lock and allow other thread to display nos. from 1 to 5 and then previous thread will display nos. from 6 to 10 and so on.
+import java.util.concurrent.locks.*;
+import java.util.concurrent.*;
+public class Mythread implements Runnable
+{
+	static ReentrantLock lock = new ReentrantLock();
+	static Condition value = lock.newCondition();
+	static void display()
+	{
+		lock.lock();
+		for(int i=1; i<11; i++)
+		{
+			if(i==6)
+			{
+				try
+				{
+					value.await();
+				}
+				catch(InterruptedException ie)
+				{
+				}
+			}
+			System.out.println("Hello "+i+" "+Thread.currentThread().getName());
+			value.signalAll();
+		}
+		lock.unlock();
+	}
+	public void run()
+	{
+		display();
+	}
+	public static void main(String args[])
+	{
+		ExecutorService exec = Executors.newFixedThreadPool(2);
+		exec.execute(new Mythread());
+		exec.execute(new Mythread());
+		exec.shutdown();
+	}
+}
+or 
+import java.util.concurrent.*;
+public class Mythread implements Runnable
+{
+	static Class cs;
+	static void display()
+	{
+	synchronized(cs)
+	{	for(int i=1; i<11; i++)
+		{
+			if(i==6)
+			{
+				try
+				{
+					cs.wait();
+				}
+				catch(InterruptedException ie)
+				{
+				}
+			}
+			System.out.println("Hello "+i+" "+Thread.currentThread().getName());
+			cs.notifyAll();
+		}
+	}
+	}
+	public void run()
+	{
+		display();
+	}
+	public static void main(String args[])
+	{
+		try {
+			cs = Class.forName("Demopack.Mythread");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		ExecutorService exec = Executors.newFixedThreadPool(2);
+		exec.execute(new Mythread());
+		exec.execute(new Mythread());
+		exec.shutdown();
+	}
+}
+
+3) create a multi-threaded application by using Thread pool and ReentrantLock (explicit locking) .create 2 threads. each thread should display characters from A to J. [ make sure while one thread executes , other thread should not interfere ]
+import java.util.concurrent.locks.*;
+import java.util.concurrent.*;
+public class Mythread implements Runnable
+{
+	ReentrantLock lock = new ReentrantLock();
+	public void run()
+	{
+		lock.lock();
+		for(int i=0; i<10;i++)
+		{
+			System.out.print((char)('A'+i)+" ");
+		}
+		System.out.println(Thread.currentThread().getName());
+		lock.unlock();
+	}
+	public static void main(String args[])
+	{
+		Mythread th = new Mythread();
+		ExecutorService exec = Executors.newFixedThreadPool(2);
+		exec.execute(th);
+		exec.execute(th);
+		exec.shutdown();
+	}
+}
+
+4) create a multi-threaded application by using Thread pool and ReentrantLock.create 2 threads. each thread should display numbers from 1 to 10. [ make sure while one thread executes , other thread should not interfere ]
+Also when first thread displays nos. from 1 to 5 it should released the lock and allow other thread to display nos. from 1 to 5 and then previous thread will display nos. from 6 to 10 and so on.
+import java.util.concurrent.locks.*;
+import java.util.concurrent.*;
+public class Mythread implements Runnable 
+{
+	ReentrantLock lock = new ReentrantLock();   //  Reentrant is an explicit lock class 
+	Condition value = lock.newCondition();  
+	public void display()
+	{
+		lock.lock();
+		for(int i=1; i<11; i++)
+		{
+			System.out.println("Hello "+i+" "+Thread.currentThread());
+		}
+		lock.unlock();
+	}
+	public void run()
+	{
+		display();
+	}
+	public static void main(String args[])
+	{
+		ExecutorService exec = Executors.newFixedThreadPool(2);
+		exec.execute(new Mythread());
+		exec.execute(new Mythread());
+		exec.shutdown();  
+	}
+}
