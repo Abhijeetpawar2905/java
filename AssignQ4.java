@@ -1,66 +1,100 @@
-/*4) on the developer side create following checked exception:
-	InvalidLengthException
-create necessary jar file and documentation.
+/*create a new project
+	create a package "weaponpack"
+		inside this package
 
-on client side
-
-public class Authenticator
-	with
-a parameterized constructor which takes String as a password.
-this class also will have "done()" method with "successful authentication" message.
-Parameterized constructor should check the length of the password passed if it is less than 5 or more that 9 , 
-it should raise "InvalidLengthException" 
-	[ constructor shouldn't handle the exception]
-
-create a class "Demo" with main
-	inside main function create the object of "Authenticator" class and invoke "done()" method.*/
-
-package DAY_8;
-
-import java.util.Scanner;
-
-class InvalidLengthException extends Exception
-{
-	InvalidLengthException(String s)
+	public class Weapon
 	{
-		super(s);
+		public void attack()
+		{
+		}
+	}
+	public class Sword extends Weapon
+	{
+		override attack
+	}
+	public class Bomb extends Weapon
+	{
+		override attack
+	}
+	public class Gun extends Weapon
+	{
+		override attack
+			+
+		public void fillBullets()
+		{
+			S.o.p("filling bullets");
+		}
+	}
+
+	public class Soldier
+	{
+		// define "fight" method in such a way that given any specific weapon, it should be able to attack
+		public void fight(Weapon ref)
+		{
+			ref.attack();
+			// make sure you invoke "fillBullets" also along with "attack" and that shouldn't give "ClassCastException"
+		}
+
+	}
+	public class WeaponDemo
+	{
+		p.s.v.main()
+		{
+			//invoke "fight" method of Soldier class
+			Soldier s1=new Soldier();
+			s1.fight(new Gun());
+		}
+	}*/
+
+package DAY_6;
+
+class Weapon
+{
+	public void attack()
+	{
+		System.out.println("weapon Attack ");
 	}
 }
-class Authenticator 
+
+class Sword extends Weapon
 {
-	Authenticator(String s) throws InvalidLengthException
+	public void attack()
 	{
-		String pass;
-		if(5>s.length() || s.length()>9)
-		{
-			throw new InvalidLengthException("Invalid Passwod enter bet 5 -9");
-		}
-		pass=s;
+		System.out.println("Attack with Sword");
 	}
-	void done()
+}
+
+class Bomb extends Weapon
+{
+	public void attack()
 	{
-		System.out.println("Sucessfully Done");
+		System.out.println("Attack with bomb");
 	}
+}
+
+class Gun extends Weapon
+{
+	public void attack()
+	{
+		System.out.println("attak with Gun");
+	}
+	public void fillBullets()
+	{
+		System.out.println("filling bullets ");
+	}
+}
+
+class Soldier
+{
+	// define "fight" method in such a way that given any specific weapon, it should be able to attack
+	public void fight(Weapon ref)
+	{
+		ref.attack();
+		// make sure you invoke "fillBullets" also along with "attack" and that shouldn't give "ClassCastException"
+	}
+
 }
 
 public class AssignQ4 {
-	
-	public static void main(String[] args) {
-		
-		Scanner sc= new Scanner(System.in);
-		String pass=sc.next();
-		
-		try
-		{
-			Authenticator a = new Authenticator(pass);
-			a.done();
-		}
-		catch(InvalidLengthException ie)
-		{
-			System.out.println(ie);
-		}
-	}
-	
 
-	
 }
