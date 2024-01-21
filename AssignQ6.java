@@ -1,85 +1,53 @@
-/*
-6) define static initializers in the above A,B and C classes and check the order of their execution
+/*6)Show the example of hierarchical inheritance with constructor invocation.
 */
-
-package DAY_2;
-
-class A {
-    private static int A=13;
-    private int AA=23;
-
-    static
-    {
-        System.out.println("inside Static Initializer of A");
-    }
-
-    public static int getA()
-    {
-        return A;
-    }
-
-    public int getaa()
-    {
-        return AA;
-    }
+package DAY_4;
 
 
+class Base1
+{
+	Base1()
+	{
+		System.out.println("In side Base  constructor");
+	}
+	void disp()
+	{
+		System.out.println("In side base disp");
+	}
 }
-class B {
-    private static int B=12;
-    private int BB=22;
-
-    static
-    {
-        System.out.println("inside Static Initializer of B");
-    }
-
-    public static int getB()
-    {
-        return B;
-    }
-
-    public int getBB()
-    {
-        return BB;
-    }
-
+class sub1 extends Base1
+{
+	sub1()
+	{
+		System.out.println("In side Sub1 Contructor");
+	}
+	void disp1()
+	{
+		System.out.println("In side sub1 disp");
+	}
 }
-class C {
-    private static int C=11;
-    private int CC=21;
-    
-
-    static
-    {
-        System.out.println("inside Static Initializer of C");
-    }
-
-    public static int getC()
-    {
-        return C;
-    }
-
-    public int getCC()
-    {
-        return CC;
-    }
-
+class sub22 extends Base1
+{
+	sub22()
+	{
+		System.out.println("In side sub2 constructor ");
+	}
+	
+	void disp2()
+	{
+		System.out.println("Inside sub2 disp");
+	}
 }
 public class AssignQ6 {
-    public static void main(String[] args) {
-               System.out.println(A.getA());
-               System.out.println(B.getB());
-               System.out.println(C.getC() +"\n");
 
-               A a=new A();
-                B b=new B();
-                C c=new C();
-                System.out.println(a.getaa());
-                System.out.println(b.getBB());
-                System.out.println(c.getCC());
-
-
-
-        }
-    }
+	public static void main(String[] args) {
+		
+		sub22 s =new sub22();
+		s.disp();
+		//s.disp1(); can not access 
+		s.disp2();
+		
+		sub1 s1= new sub1();
+		s1.disp();
+		s1.disp1();
+	}
+}

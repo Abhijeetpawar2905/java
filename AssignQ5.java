@@ -1,71 +1,58 @@
-/*
-	5) Define 3 classes A , B and C
-	in all these classes create static and nonstatic variables as well as methods.
-		Now Define a class "Demo" ,in which define "main" function. From this main function
-		try to access all the members of A ,B  and C.
-	*/
+/*5)Show the example of multi-level inheritance with constructor invocation.
+*/
 
-package DAY_2;
+package DAY_4;
 
-
-
-
-	class A {
-	    private static int A=13;
-	    private int AA=23;
-	    public static int getA()
-	    {
-	        return A;
-	    }
-
-	    public int getaa()
-	    {
-	        return AA;
-	    }
-
-
+class Base1
+{
+//	int num1;
+//	public int num2;
+//	private int num3;
+//	protected int num4;
+	
+	Base1()
+	{
+		System.out.println("Inside Base construct");
 	}
-	class B {
-	    private static int B=12;
-	    private int BB=22;
-	    public static int getB()
-	    {
-	        return B;
-	    }
-
-	    public int getBB()
-	    {
-	        return BB;
-	    }
-
+	
+	public void disp() {
+		System.out.println("in side base disp");
+		//System.out.println(num1+","+num2+","+num3+","+num4);
 	}
-	class C {
-	    private static int C=11;
-	    private int CC=21;
-	    public static int getC()
-	    {
-	        return C;
-	    }
-
-	    public int getCC()
-	    {
-	        return CC;
-	    }
-
+}
+class Child1 extends Base1
+{
+	Child1()
+	{
+		System.out.println("in side child1 constructor");
 	}
-	public class AssignQ5 {
-		
-	    public static void main(String[] args) {
-	               System.out.println(A.getA());
-	               System.out.println(B.getB());
-	               System.out.println(C.getC() +"\n");
-
-	               A a=new A();
-	                B b=new B();
-	                C c=new C();
-	                System.out.println(a.getaa());
-	                System.out.println(b.getBB());
-	                System.out.println(c.getCC());
-
-	    }
+	void disp1()
+	{
+		System.out.println("inside child1 disp");
 	}
+}
+class Child2 extends Child1
+{
+	Child2()
+	{
+		System.out.println("in side child2 constructor");
+	}
+	
+	 void disp3()
+	{
+		//super.disp1();
+		System.out.println("in child2 disp");
+	
+	}
+}
+public class AssignQ5 {
+	
+	
+	public static void main(String[] args) {
+		 Child2 c= new Child2();
+		 c.disp();
+		 c.disp1();
+		 c.disp3();
+	}
+
+}
